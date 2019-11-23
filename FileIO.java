@@ -1,0 +1,69 @@
+package co.edureka.io;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+class Students{
+	
+	// declare int , name and address of student
+	int id;
+	String name;
+	String address;
+	
+	Students() {
+		
+	}
+	
+	Students(int i, String name, String address){
+		this.id = i;
+		this.name = name;
+		this.address = address;
+		
+	}
+	
+	String toCSV(){
+		return "roll " + "," + id + "," + " name " + "," + name + "," + " address " +"," + address;
+	}
+}
+
+public class FileIO {
+
+	void WriteDataInFile(Students sRef){
+		try {
+		File file = new File("/Users/jagme/OneDrive/Documents/GitHub/Edureka/src/co/edureka/io/students.csv");
+		FileOutputStream stream;
+		stream = new FileOutputStream(file);
+		String data = sRef.toCSV();
+		try {
+			stream.write(data.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			stream.close();// close will ensure memory is no longer used for stream.
+			System.out.println("Data written in file");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		} 
+		catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	public static void main(String[] args) {
+		Students s1 = new Students(1,"John","Carlton Stree");
+		Students s2 = new Students(2,"Karry","Mclarren Avenue");
+		System.out.println("S1 details "+ s1.toCSV());
+		System.out.println("S2 details "+ s2.toCSV());
+		
+		FileIO io = new FileIO();
+		io.WriteDataInFile(s1);
+		
+	}
+
+}
